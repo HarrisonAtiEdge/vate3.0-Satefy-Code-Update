@@ -1,12 +1,17 @@
 // server.js
 const express = require('express');
 const http = require('http');
-const socketIO = require('socket.io');
+// const socketIO = require('socket.io');
+const { Server } = require('socket.io'); // ✅ Fix here
 const path = require('path'); // Added for path module
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIO(server);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+  },
+});
 
 app.use(express.static('public'));
 
